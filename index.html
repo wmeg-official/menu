@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>STAND MENU</title>
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="메뉴판">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#f5f5f5">
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700;900&display=swap"
+    rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Titillium Web', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+      background: #f0f0f0;
+      color: #222;
+      min-height: 100vh;
+      min-height: 100dvh;
+      -webkit-tap-highlight-color: transparent;
+      padding-top: env(safe-area-inset-top);
+    }
+
+    /* 홈화면 추가 안내 배너 */
+    .install-guide {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-top: 1px solid #ddd;
+      padding: 16px 20px;
+      z-index: 300;
+      text-align: center;
+      animation: slideUp 0.3s ease-out;
+    }
+
+    .install-guide.show {
+      display: block;
+    }
+
+    .install-guide p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .install-guide strong {
+      color: #222;
+    }
+
+    .install-guide .dismiss {
+      margin-top: 10px;
+      background: #222;
+      border: none;
+      color: #fff;
+      padding: 8px 24px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* 헤더 */
+    .header {
+      background: #fff;
+      padding: 20px 16px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    }
+
+    .store-name {
+      font-size: 30px;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 5px;
+      color: #222;
+      padding-bottom: 16px;
+    }
+
+    /* 탭 */
+    .tabs {
+      display: flex;
+      border-top: 1px solid #eee;
+    }
+
+    .tab {
+      flex: 1;
+      text-align: center;
+      padding: 13px 0;
+      font-size: 14px;
+      font-weight: 700;
+      color: #bbb;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.2s;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .tab.active {
+      color: #222;
+    }
+
+    .tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 20%;
+      width: 60%;
+      height: 2px;
+      background: #222;
+    }
+
+    /* 메뉴 리스트 */
+    .menu-container {
+      padding: 8px 16px 40px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .category-title {
+      font-size: 13px;
+      color: #999;
+      font-weight: 700;
+      margin: 24px 0 8px;
+      padding-left: 4px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 4px;
+      border-bottom: 1px solid #e0e0e0;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .menu-item:active {
+      background: rgba(0, 0, 0, 0.03);
+    }
+
+    .menu-left {
+      flex: 1;
+    }
+
+    .menu-name {
+      font-size: 22px;
+      font-weight: 700;
+      color: #222;
+    }
+
+    .hotice {
+      font-size: 15px;
+      font-weight: 700;
+      color: #999;
+      margin-left: 10px;
+      letter-spacing: 1px;
+    }
+
+    .menu-brief {
+      font-size: 14px;
+      color: #666;
+      margin-top: 6px;
+      padding-left: 12px;
+      font-weight: 600;
+    }
+
+    .menu-right {
+      display: flex;
+      align-items: center;
+    }
+
+    .menu-price {
+      font-size: 20px;
+      font-weight: 700;
+      color: #555;
+      white-space: nowrap;
+    }
+
+    /* 모달 오버레이 */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 200;
+      justify-content: center;
+      align-items: flex-end;
+      animation: fadeIn 0.2s;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(100%);
+      }
+
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    .modal {
+      background: #fff;
+      border-radius: 16px 16px 0 0;
+      width: 100%;
+      max-width: 600px;
+      max-height: 85vh;
+      overflow-y: auto;
+      animation: slideUp 0.3s ease-out;
+    }
+
+    .modal-image {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      border-radius: 16px 16px 0 0;
+      background: #e8e8e8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+    }
+
+    .modal-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .modal-body {
+      padding: 24px 20px 40px;
+    }
+
+    .modal-name {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: #222;
+    }
+
+    .modal-price {
+      font-size: 18px;
+      color: #222;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .modal-desc {
+      font-size: 14px;
+      color: #777;
+      line-height: 1.7;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 32px;
+      height: 32px;
+      background: rgba(0, 0, 0, 0.4);
+      border: none;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .img-placeholder {
+      width: 100%;
+      height: 240px;
+      background: #e8e8e8;
+      border-radius: 16px 16px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 64px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <div class="store-name">STAND</div>
+    <div class="tabs">
+      <div class="tab active" data-tab="coffee">COFFEE</div>
+      <div class="tab" data-tab="beer">BEER</div>
+      <div class="tab" data-tab="drink">DRINK</div>
+      <div class="tab" data-tab="food">FOOD</div>
+    </div>
+  </div>
+
+  <div class="menu-container" id="menuContainer"></div>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-wrapper">
+      <div class="modal" id="modal">
+        <div id="modalImage" class="img-placeholder"></div>
+        <div class="modal-body">
+          <div class="modal-name" id="modalName"></div>
+          <div class="modal-price" id="modalPrice"></div>
+          <div class="modal-desc" id="modalDesc"></div>
+        </div>
+      </div>
+      <button class="modal-close" id="modalClose">&times;</button>
+    </div>
+  </div>
+
+  <div class="install-guide" id="installGuide">
+    <p>
+      주소창 없이 전체화면으로 사용하려면<br>
+      Safari에서 <strong>공유 버튼 ↗</strong> → <strong>"홈 화면에 추가"</strong>를 눌러주세요
+    </p>
+    <button class="dismiss" id="dismissGuide">확인</button>
+  </div>
+
+  <script>
+    const menuData = {
+      coffee: {
+        categories: [
+          {
+            title: 'AMERICANO',
+            items: [
+              { name: '아메리카노', price: '4,000', desc: '깊고 풍부한 에스프레소에 물을 더해 깔끔하게 즐기는 클래식 커피입니다. HOT / ICE 선택 가능합니다.', emoji: '☕', hotice: true },
+            ]
+          },
+        ]
+      },
+      beer: {
+        categories: [
+          {
+            title: 'BOTTLE',
+            items: [
+              { name: '하이네켄 0.0', price: '5,000', brief: ['F1 글로벌 파트너'], desc: '네덜란드 프리미엄 논알콜 라거. 깔끔한 맛과 은은한 홉의 풍미가 특징입니다.', emoji: '🍻' },
+              { name: '페로니', price: '6,500', brief: ['스쿠데리아 페라리 F1팀 공식 파트너'], desc: '이탈리아 대표 프리미엄 라거. 깔끔하고 상쾌한 맛이 특징입니다.', emoji: '🍻' },
+              { name: '코로나', price: '6,000', desc: '멕시코 대표 라거. 가볍고 청량한 맛으로 전 세계에서 사랑받는 맥주입니다.', emoji: '🍻' },
+            ]
+          },
+          {
+            title: 'LIMITED',
+            items: [
+              { name: '크롬바커', price: '6,500', brief: ['뉘르부르크링이 있는 독일 서부지역 맥주', 'NLS 주간 한정 판매'], desc: '독일 서부 지역의 전통 필스너. 뉘르부르크링을 상징하는 맥주입니다.', emoji: '🍻' },
+              { name: '비라모레띠', price: '6,500', brief: ['WEC 이몰라 기념 한정 판매'], desc: '이탈리아 전통 라거. WEC 이몰라 기념 한정 판매입니다.', emoji: '🍻' },
+            ]
+          },
+        ]
+      },
+      drink: {
+        categories: [
+          {
+            title: 'SOFT DRINK',
+            items: [
+              { name: '레드불', price: '4,000', desc: '날개를 펼쳐주는 에너지 드링크. 시원하게 즐겨보세요.', emoji: '🧃' },
+              { name: '코카콜라', price: '3,000', desc: '시원하고 톡 쏘는 클래식 코카콜라입니다.', emoji: '🥤' },
+            ]
+          }
+        ]
+      },
+      food: {
+        categories: [
+          {
+            title: 'SANDWICH',
+            items: [
+              { name: '치아바타 샌드위치', price: '5,500', desc: '겉은 바삭하고 속은 쫄깃한 치아바타 빵에 신선한 재료를 가득 넣은 샌드위치입니다.', emoji: '🥪' },
+            ]
+          }
+        ]
+      }
+    };
+
+    const container = document.getElementById('menuContainer');
+    const overlay = document.getElementById('modalOverlay');
+    const modalClose = document.getElementById('modalClose');
+    let activeTab = 'coffee';
+
+    function renderMenu(tab) {
+      const data = menuData[tab];
+      let html = '';
+
+      data.categories.forEach(cat => {
+        html += `<div class="category-title">${cat.title}</div>`;
+        cat.items.forEach((item, idx) => {
+          const hoticeHtml = item.hotice ? '<span class="hotice">HOT / ICE</span>' : '';
+          const briefLines = Array.isArray(item.brief) ? item.brief : (item.brief ? [item.brief] : []);
+          const briefHtml = briefLines.map(line => `<div class="menu-brief">${line}</div>`).join('');
+
+          html += `
+        <div class="menu-item" data-tab="${tab}" data-cat="${cat.title}" data-idx="${idx}">
+          <div class="menu-left">
+            <div class="menu-name">${item.name} ${hoticeHtml}</div>
+            ${briefHtml}
+          </div>
+          <div class="menu-right">
+            <span class="menu-price">${item.price}원</span>
+          </div>
+        </div>`;
+        });
+      });
+
+      container.innerHTML = html;
+
+      container.querySelectorAll('.menu-item').forEach(el => {
+        el.addEventListener('click', () => {
+          const t = el.dataset.tab;
+          const catTitle = el.dataset.cat;
+          const idx = parseInt(el.dataset.idx);
+          const cat = menuData[t].categories.find(c => c.title === catTitle);
+          const item = cat.items[idx];
+          openModal(item);
+        });
+      });
+    }
+
+    function openModal(item) {
+      if (item.image) {
+        document.getElementById('modalImage').innerHTML = `<img src="${item.image}" alt="${item.name}">`;
+        document.getElementById('modalImage').className = 'modal-image';
+      } else {
+        document.getElementById('modalImage').innerHTML = item.emoji || '📷';
+        document.getElementById('modalImage').className = 'img-placeholder';
+      }
+      document.getElementById('modalName').textContent = item.name;
+      document.getElementById('modalPrice').textContent = item.price + '원';
+      document.getElementById('modalDesc').textContent = item.desc;
+      overlay.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      overlay.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        activeTab = tab.dataset.tab;
+        renderMenu(activeTab);
+        container.scrollTo(0, 0);
+        window.scrollTo(0, 0);
+      });
+    });
+
+    modalClose.addEventListener('click', closeModal);
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeModal();
+    });
+
+    renderMenu(activeTab);
+
+    const isStandalone = window.navigator.standalone === true
+      || window.matchMedia('(display-mode: standalone)').matches;
+
+    if (!isStandalone && !localStorage.getItem('guide-dismissed')) {
+      document.getElementById('installGuide').classList.add('show');
+    }
+
+    document.getElementById('dismissGuide').addEventListener('click', () => {
+      document.getElementById('installGuide').classList.remove('show');
+      localStorage.setItem('guide-dismissed', '1');
+    });
+  </script>
+
+</body>
+
+</html>
