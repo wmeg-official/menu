@@ -135,6 +135,40 @@
       margin: 0 auto;
     }
 
+    .bean-info {
+      background: #fff;
+      padding: 18px 18px 16px;
+      border-radius: 10px;
+      margin: 16px 0 8px;
+      text-align: center;
+    }
+
+    .bean-info-blend {
+      font-size: 15px;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .bean-info-ratings {
+      display: flex;
+      gap: 28px;
+      font-size: 14px;
+      color: #555;
+      justify-content: center;
+    }
+
+    .bean-info-rating-label {
+      font-weight: 600;
+      margin-right: 8px;
+    }
+
+    .bean-info-dots {
+      letter-spacing: 2px;
+      color: #555;
+    }
+
     .category-title {
       font-size: 13px;
       color: #999;
@@ -145,7 +179,8 @@
       text-transform: uppercase;
     }
 
-    .category-title:first-child {
+    .category-title:first-child,
+    .bean-info + .category-title {
       margin-top: 16px;
     }
 
@@ -365,6 +400,11 @@
   <script>
     const menuData = {
       coffee: {
+        info: {
+          blend: '#브라질 40%, 콜롬비아 20%, 과테말라 20%, 에티오피아 20%',
+          acidity: 2.5,
+          strength: 4,
+        },
         categories: [
           {
             title: 'AMERICANO',
@@ -388,6 +428,8 @@
             title: 'BOTTLE',
             items: [
               { name: '하이네켄 0.0', price: '5,000', brief: ['F1 글로벌 파트너'], desc: '네덜란드 프리미엄 논알콜 라거. 깔끔한 맛과 은은한 홉의 풍미가 특징입니다.', emoji: '🍻' },
+              { name: '하이네켄', price: '6,000', desc: '네덜란드 대표 프리미엄 라거. 깔끔하고 상쾌한 맛이 특징입니다.', emoji: '🍻' },
+              { name: '하이네켄 실버', price: '6,000', desc: '부드럽고 가벼운 맛의 하이네켄 실버입니다.', emoji: '🍻' },
               { name: '페로니', price: '6,500', brief: ['스쿠데리아 페라리 F1팀 공식 파트너'], desc: '이탈리아 대표 프리미엄 라거. 깔끔하고 상쾌한 맛이 특징입니다.', emoji: '🍻' },
               { name: '코로나', price: '6,500', brief: ['분노의 질주'], desc: '멕시코 대표 라거. 가볍고 청량한 맛으로 전 세계에서 사랑받는 맥주입니다.', emoji: '🍻' },
             ]
@@ -440,9 +482,27 @@
     const modalClose = document.getElementById('modalClose');
     let activeTab = 'coffee';
 
+    function renderRating(val, max = 5) {
+      const full = Math.floor(val);
+      const half = val - full >= 0.5 ? 1 : 0;
+      const empty = max - full - half;
+      return '●'.repeat(full) + '◐'.repeat(half) + '○'.repeat(empty);
+    }
+
     function renderMenu(tab) {
       const data = menuData[tab];
       let html = '';
+
+      if (data.info) {
+        html += `
+          <div class="bean-info">
+            <div class="bean-info-blend">${data.info.blend}</div>
+            <div class="bean-info-ratings">
+              <div><span class="bean-info-rating-label">산미</span><span class="bean-info-dots">${renderRating(data.info.acidity)}</span></div>
+              <div><span class="bean-info-rating-label">강도</span><span class="bean-info-dots">${renderRating(data.info.strength)}</span></div>
+            </div>
+          </div>`;
+      }
 
       data.categories.forEach(cat => {
         html += `<div class="category-title">${cat.title}</div>`;
