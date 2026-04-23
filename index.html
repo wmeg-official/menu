@@ -216,6 +216,28 @@
       letter-spacing: 1px;
     }
 
+    .menu-name-kr {
+      font-size: 15px;
+      font-weight: 500;
+      color: #aaa;
+      margin-left: 8px;
+    }
+
+    .abv {
+      font-size: 13px;
+      font-weight: 600;
+      color: #aaa;
+      margin-left: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    .caution {
+      font-size: 12px;
+      font-weight: 700;
+      color: #d33;
+      margin-left: 8px;
+    }
+
     .menu-brief {
       font-size: 14px;
       color: #666;
@@ -417,7 +439,7 @@
           {
             title: 'SPECIAL',
             items: [
-              { name: 'Max Verstappen', nameKr: '막스 베르스타펜', price: '6,000', brief: ['레드불 + 샷'], hotice: 'ICE', desc: '에너지 드링크 레드불에 에스프레소 샷을 더한 강력한 시그니처 음료입니다.', emoji: '🧃' },
+              { name: 'Max Verstappen', nameKr: '막스 베르스타펜', price: '6,000', brief: ['레드불 + 샷 <span class="caution">고카페인</span>'], hotice: 'ICE', desc: '에너지 드링크 레드불에 에스프레소 샷을 더한 강력한 시그니처 음료입니다.', emoji: '🧃' },
               { name: 'NASCAR', nameKr: '나스카', price: '5,500', brief: ['코카콜라 + 샷'], hotice: 'ICE', desc: '시원한 코카콜라에 에스프레소 샷을 더한 특별한 시그니처 음료입니다.', emoji: '🥤' },
             ]
           },
@@ -428,18 +450,18 @@
           {
             title: 'BOTTLE',
             items: [
-              { name: '하이네켄 0.0', price: '5,000', brief: ['F1 글로벌 파트너'], desc: '네덜란드 프리미엄 논알콜 라거. 깔끔한 맛과 은은한 홉의 풍미가 특징입니다.', emoji: '🍻' },
-              { name: '하이네켄', price: '6,000', desc: '네덜란드 대표 프리미엄 라거. 깔끔하고 상쾌한 맛이 특징입니다.', emoji: '🍻' },
-              { name: '하이네켄 실버', price: '6,000', desc: '부드럽고 가벼운 맛의 하이네켄 실버입니다.', emoji: '🍻' },
-              { name: '페로니', price: '6,500', brief: ['스쿠데리아 페라리 F1팀 공식 파트너'], desc: '이탈리아 대표 프리미엄 라거. 깔끔하고 상쾌한 맛이 특징입니다.', emoji: '🍻' },
-              { name: '코로나', price: '6,500', brief: ['분노의 질주'], desc: '멕시코 대표 라거. 가볍고 청량한 맛으로 전 세계에서 사랑받는 맥주입니다.', emoji: '🍻' },
+              { name: '하이네켄 0.0', abv: '0.0%', price: '5,000', brief: ['F1 글로벌 파트너'], desc: '네덜란드 프리미엄 논알콜 라거. 깔끔한 맛과 은은한 홉의 풍미가 특징입니다.', emoji: '🍻' },
+              { name: '하이네켄', abv: '5.0%', price: '6,000', desc: '네덜란드 대표 프리미엄 라거. 깔끔하고 상쾌한 맛이 특징입니다.', emoji: '🍻' },
+              { name: '하이네켄 실버', abv: '4.0%', price: '6,000', desc: '부드럽고 가벼운 맛의 하이네켄 실버입니다.', emoji: '🍻' },
+              { name: '페로니', abv: '5.1%', price: '6,500', brief: ['스쿠데리아 페라리 F1팀 공식 파트너'], desc: '이탈리아 대표 프리미엄 라거. 깔끔하고 상쾌한 맛이 특징입니다.', emoji: '🍻' },
+              { name: '코로나', abv: '4.6%', price: '6,500', brief: ['분노의 질주'], desc: '멕시코 대표 라거. 가볍고 청량한 맛으로 전 세계에서 사랑받는 맥주입니다.', emoji: '🍻' },
             ]
           },
           {
             title: 'LIMITED',
             items: [
-              { name: '크롬바커', price: '6,500', brief: ['뉘르부르크링이 있는 독일 서부지역 맥주', 'NLS 주간 한정 판매'], desc: '독일 서부 지역의 전통 필스너. 뉘르부르크링을 상징하는 맥주입니다.', emoji: '🍻' },
-              { name: '비라모레띠', price: '6,500', brief: ['WEC 이몰라 기념 한정 판매'], desc: '이탈리아 전통 라거. WEC 이몰라 기념 한정 판매입니다.', emoji: '🍻' },
+              { name: '크롬바커', abv: '4.8%', price: '6,500', brief: ['뉘르부르크링이 있는 독일 서부지역 맥주', 'NLS 주간 한정 판매'], desc: '독일 서부 지역의 전통 필스너. 뉘르부르크링을 상징하는 맥주입니다.', emoji: '🍻' },
+              { name: '비라모레띠', abv: '4.6%', price: '6,500', brief: ['WEC 이몰라 기념 한정 판매'], desc: '이탈리아 전통 라거. WEC 이몰라 기념 한정 판매입니다.', emoji: '🍻' },
             ]
           },
         ]
@@ -510,13 +532,14 @@
         cat.items.forEach((item, idx) => {
           const hoticeLabel = item.hotice === true ? 'HOT / ICE' : (typeof item.hotice === 'string' ? item.hotice : '');
           const hoticeHtml = hoticeLabel ? `<span class="hotice">${hoticeLabel}</span>` : '';
+          const abvHtml = item.abv ? `<span class="abv">${item.abv}</span>` : '';
           const briefLines = Array.isArray(item.brief) ? item.brief : (item.brief ? [item.brief] : []);
           const briefHtml = briefLines.map(line => `<div class="menu-brief">${line}</div>`).join('');
 
           html += `
         <div class="menu-item" data-tab="${tab}" data-cat="${cat.title}" data-idx="${idx}">
           <div class="menu-left">
-            <div class="menu-name">${item.name} ${hoticeHtml}</div>
+            <div class="menu-name">${item.name}${item.nameKr ? ` <span class="menu-name-kr">${item.nameKr}</span>` : ''} ${abvHtml} ${hoticeHtml}</div>
             ${briefHtml}
           </div>
           <div class="menu-right">
