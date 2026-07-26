@@ -238,6 +238,17 @@
       margin-left: 8px;
     }
 
+    .soldout {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      background: #999;
+      padding: 2px 8px;
+      border-radius: 3px;
+      letter-spacing: 1px;
+    }
+
     .menu-brief {
       font-size: 14px;
       color: #666;
@@ -453,16 +464,16 @@
               { name: '하이네켄 0.0', abv: '0.0%', price: '6,000', brief: ['F1 글로벌 파트너'], desc: '네덜란드 프리미엄 논알콜 라거. 깔끔한 맛과 은은한 홉의 풍미가 특징입니다.', emoji: '🍻' },
               { name: '하이네켄', abv: '5.0%', price: '6,000', desc: '네덜란드 대표 프리미엄 라거. 깔끔하고 상쾌한 맛이 특징입니다.', emoji: '🍻' },
               { name: '하이네켄 실버', abv: '4.0%', price: '6,000', desc: '부드럽고 가벼운 맛의 하이네켄 실버입니다.', emoji: '🍻' },
-              { name: '페로니', abv: '5.1%', price: '6,500', brief: ['스쿠데리아 페라리 F1팀 공식 파트너'], desc: '이탈리아 대표 프리미엄 라거. 깔끔하고 상쾌한 맛이 특징입니다.', emoji: '🍻' },
+              { name: '페로니', abv: '5.1%', soldOut: true, price: '6,500', brief: ['스쿠데리아 페라리 F1팀 공식 파트너'], desc: '이탈리아 대표 프리미엄 라거. 깔끔하고 상쾌한 맛이 특징입니다.', emoji: '🍻' },
               { name: '코로나', abv: '4.6%', price: '6,500', brief: ['분노의 질주'], desc: '멕시코 대표 라거. 가볍고 청량한 맛으로 전 세계에서 사랑받는 맥주입니다.', emoji: '🍻' },
             ]
           },
           {
             title: 'LIMITED',
             items: [
-              { name: '크롬바커', abv: '4.8%', price: '6,500', brief: ['뉘르부르크링이 있는 독일 서부지역 맥주', 'NLS 주간 한정 판매'], desc: '독일 서부 지역의 전통 필스너. 뉘르부르크링을 상징하는 맥주입니다.', emoji: '🍻' },
+              { name: '사무엘 아담스', abv: '5.0%', price: '6,500', brief: ['미국 보스턴 라거'], desc: '미국 보스턴을 대표하는 프리미엄 라거. 풍부한 몰트와 균형 잡힌 홉의 풍미가 특징입니다.', emoji: '🍻' },
               { name: '비라모레띠', abv: '4.6%', price: '6,500', brief: ['WEC 이몰라 기념 한정 판매'], desc: '이탈리아 전통 라거. WEC 이몰라 기념 한정 판매입니다.', emoji: '🍻' },
-              { name: '런던 프라이드', abv: '4.7%', price: '7,000', brief: ['영국GP 기념'], desc: '영국 런던의 전통 페일 에일. 풍부한 몰트 향과 균형 잡힌 홉의 쌉쌀함이 특징입니다.', emoji: '🍻' },
+              { name: '런던 프라이드', abv: '4.7%', price: '7,000', brief: ['런던 대표 에일. 영국 GP 기념'], desc: '영국 런던의 전통 페일 에일. 풍부한 몰트 향과 균형 잡힌 홉의 쌉쌀함이 특징입니다.', emoji: '🍻' },
             ]
           },
         ]
@@ -472,14 +483,14 @@
           {
             title: 'ADE',
             items: [
-              { name: '매실에이드', price: '6,500', brief: ['수제'], desc: '수제 매실 원액에 탄산을 더한 상큼달콤한 에이드입니다.', emoji: '🍹' },
+              { name: '매실에이드', price: '6,000', brief: ['수제'], desc: '수제 매실 원액에 탄산을 더한 상큼달콤한 에이드입니다.', emoji: '🍹' },
+              { name: '레몬에이드', price: '6,500', brief: ['수제'], desc: '수제 레몬 원액에 탄산을 더한 상큼한 에이드입니다.', emoji: '🍋' },
             ]
           },
           {
             title: 'TEA',
             items: [
-              { name: 'Rich Ceylon', price: '5,000', brief: ['홍차'], hotice: true, desc: '스리랑카 실론 지역의 풍부하고 진한 맛이 매력적인 홍차입니다.', emoji: '🫖' },
-              { name: 'Royal Earl Grey', price: '5,000', brief: ['홍차'], hotice: true, desc: '베르가못 향이 우아하게 퍼지는 클래식 얼그레이 홍차입니다.', emoji: '🫖' },
+              { name: '홍차', price: '5,000', brief: ['Rich Ceylon / Royal Earl Grey'], hotice: true, desc: '깔끔한 Rich Ceylon 또는 향긋한 Royal Earl Grey 중 선택 가능합니다.', emoji: '🫖' },
               { name: '우롱차', price: '5,000', hotice: true, desc: '은은한 꽃향과 부드러운 맛이 특징인 반발효차입니다.', emoji: '🍵' },
               { name: '밀크티', price: '5,000', brief: ['<span class="caution">고당도</span>'], hotice: 'ICE', desc: '진한 홍차에 우유와 시럽을 더한 달콤한 밀크티입니다.', emoji: '🥤' },
             ]
@@ -491,6 +502,7 @@
               { name: '레드불', price: '4,000', brief: ['250ml'], desc: '날개를 펼쳐주는 에너지 드링크. 시원하게 즐겨보세요.', emoji: '🧃' },
               { name: '골드메달', price: '5,000', brief: ['사과주스'], desc: '상큼하고 달콤한 사과주스입니다.', emoji: '🍎' },
               { name: '분다버그', price: '5,500', brief: ['핑크자몽'], desc: '호주 프리미엄 음료. 상큼한 핑크자몽 맛이 매력적입니다.', emoji: '🍹' },
+              { name: '오렌지 주스', price: '5,000', desc: '상큼하고 시원한 오렌지 주스입니다.', emoji: '🍊' },
             ]
           }
         ]
@@ -500,10 +512,12 @@
           {
             title: 'FOOD',
             items: [
-              { name: '치아바타 샌드위치', price: '4,200', desc: '겉은 바삭하고 속은 쫄깃한 치아바타 빵에 신선한 재료를 가득 넣은 샌드위치입니다.', emoji: '🥪' },
-              { name: '프레즐', price: '3,000', brief: ['미니 트위스트'], desc: '짭짤하고 바삭한 미니 트위스트 프레즐입니다.', emoji: '🥨' },
-              { name: '육개장 컵라면', price: '3,500', brief: ['일반 / 김치', '<span class="caution">22시 이후 판매</span>'], desc: '얼큰한 육개장 컵라면. 일반 / 김치 맛 중 선택 가능합니다.', emoji: '🍜' },
-              { name: '나초', price: '9,500', desc: '바삭한 나초칩에 치즈와 살사 소스를 곁들인 인기 안주입니다.', emoji: '🌮' },
+              { name: '프레즐', price: '2,000', brief: ['미니 트위스트'], desc: '짭짤하고 바삭한 미니 트위스트 프레즐입니다.', emoji: '🥨' },
+              { name: '감자튀김', price: '5,500', desc: '바삭하게 튀겨낸 감자튀김입니다.', emoji: '🍟' },
+              { name: '어묵튀김', price: '5,500', desc: '바삭한 어묵튀김입니다.', emoji: '🍢' },
+              { name: '팝콘치킨', price: '6,000', desc: '한입 사이즈로 튀겨낸 바삭한 팝콘치킨입니다.', emoji: '🍗' },
+              { name: '나초', price: '6,000', desc: '바삭한 나초칩에 치즈와 살사 소스를 곁들인 인기 안주입니다.', emoji: '🌮' },
+              { name: '육개장 컵라면 <span class="caution">22시 이후 판매</span>', price: '3,500', brief: ['일반 / 김치'], desc: '얼큰한 육개장 컵라면. 일반 / 김치 맛 중 선택 가능합니다.', emoji: '🍜' },
             ]
           }
         ]
@@ -543,13 +557,14 @@
           const hoticeLabel = item.hotice === true ? 'HOT / ICE' : (typeof item.hotice === 'string' ? item.hotice : '');
           const hoticeHtml = hoticeLabel ? `<span class="hotice">${hoticeLabel}</span>` : '';
           const abvHtml = item.abv ? `<span class="abv">${item.abv}</span>` : '';
+          const soldOutHtml = item.soldOut ? `<span class="soldout">SOLD OUT</span>` : '';
           const briefLines = Array.isArray(item.brief) ? item.brief : (item.brief ? [item.brief] : []);
           const briefHtml = briefLines.map(line => `<div class="menu-brief">${line}</div>`).join('');
 
           html += `
         <div class="menu-item" data-tab="${tab}" data-cat="${cat.title}" data-idx="${idx}">
           <div class="menu-left">
-            <div class="menu-name">${item.name}${item.nameKr ? ` <span class="menu-name-kr">${item.nameKr}</span>` : ''} ${abvHtml} ${hoticeHtml}</div>
+            <div class="menu-name">${item.name}${item.nameKr ? ` <span class="menu-name-kr">${item.nameKr}</span>` : ''} ${abvHtml} ${hoticeHtml} ${soldOutHtml}</div>
             ${briefHtml}
           </div>
           <div class="menu-right">
