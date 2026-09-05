@@ -24,13 +24,31 @@
       box-sizing: border-box;
     }
 
+    html, body {
+      overscroll-behavior: none;
+      overscroll-behavior-y: none;
+      height: 100%;
+      overflow: hidden;
+      position: fixed;
+      width: 100%;
+    }
+
     body {
       font-family: 'Titillium Web', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
       background: #f0f0f0;
       color: #222;
-      min-height: 100vh;
-      min-height: 100dvh;
       -webkit-tap-highlight-color: transparent;
+    }
+
+    .scroll-area {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: none;
       padding-top: env(safe-area-inset-top);
     }
 
@@ -135,38 +153,121 @@
       margin: 0 auto;
     }
 
+    /* 빈 타이틀은 기본적으로 숨김 (세로 모드) */
+    .empty-title {
+      display: none;
+    }
+
+    /* 가로 모드 (아이패드 landscape) — 2단 컬럼 */
+    @media (orientation: landscape) and (min-width: 900px) {
+      .menu-container {
+        max-width: 960px;
+        column-count: 2;
+        column-gap: 60px;
+        padding: 8px 32px 40px;
+      }
+
+      /* FOOD 탭은 1단으로 */
+      .menu-container.tab-food {
+        column-count: 1;
+        max-width: 600px;
+      }
+
+      .menu-item,
+      .category-title,
+      .bean-info {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      .bean-info {
+        column-span: all;
+      }
+
+      .category-title:first-child,
+      .bean-info + .category-title {
+        margin-top: 16px;
+      }
+
+      .category-title.column-break {
+        break-before: column;
+        margin-top: 16px;
+      }
+
+      .column-break-spacer {
+        break-before: column;
+      }
+
+      .empty-title {
+        display: block;
+        visibility: hidden;
+        margin-top: 16px;
+      }
+    }
+
     .bean-info {
       background: #fff;
-      padding: 18px 18px 16px;
+      padding: 18px 20px;
       border-radius: 10px;
       margin: 16px 0 8px;
-      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .bean-info-main {
+      flex: 1;
+      min-width: 240px;
+      text-align: left;
     }
 
     .bean-info-blend {
       font-size: 15px;
       font-weight: 700;
       color: #333;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
       line-height: 1.4;
     }
 
-    .bean-info-ratings {
-      display: flex;
-      gap: 28px;
+    .bean-info-roast {
       font-size: 14px;
-      color: #555;
-      justify-content: center;
-    }
-
-    .bean-info-rating-label {
       font-weight: 600;
-      margin-right: 8px;
+      color: #555;
+      letter-spacing: 1px;
     }
 
-    .bean-info-dots {
-      letter-spacing: 2px;
-      color: #555;
+    .bean-info-decaf {
+      flex: 1;
+      min-width: 240px;
+      padding-left: 24px;
+      border-left: 1px solid #eee;
+      font-size: 15px;
+      font-weight: 700;
+      color: #444;
+      text-align: left;
+      line-height: 1.8;
+    }
+
+    .bean-info-sub {
+      font-size: 13px;
+      font-weight: 500;
+      color: #999;
+    }
+
+    .bean-info-price {
+      color: #d33;
+      font-weight: 700;
+    }
+
+    @media (max-width: 600px) {
+      .bean-info-decaf {
+        padding-left: 0;
+        padding-top: 12px;
+        border-left: none;
+        border-top: 1px solid #eee;
+      }
     }
 
     .category-title {
@@ -188,6 +289,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 20px;
       padding: 20px 4px;
       border-bottom: 1px solid #e0e0e0;
       cursor: pointer;
@@ -200,6 +302,7 @@
 
     .menu-left {
       flex: 1;
+      min-width: 0;
     }
 
     .menu-name {
@@ -396,17 +499,19 @@
 
 <body>
 
-  <div class="header">
-    <div class="store-name">STAND</div>
-    <div class="tabs">
-      <div class="tab active" data-tab="coffee">COFFEE</div>
-      <div class="tab" data-tab="beer">BEER</div>
-      <div class="tab" data-tab="drink">DRINK</div>
-      <div class="tab" data-tab="food">FOOD</div>
+  <div class="scroll-area" id="scrollArea">
+    <div class="header">
+      <div class="store-name">STAND</div>
+      <div class="tabs">
+        <div class="tab active" data-tab="coffee">COFFEE</div>
+        <div class="tab" data-tab="noncoffee">NON-COFFEE</div>
+        <div class="tab" data-tab="beer">BEER</div>
+        <div class="tab" data-tab="food">FOOD</div>
+      </div>
     </div>
-  </div>
 
-  <div class="menu-container" id="menuContainer"></div>
+    <div class="menu-container" id="menuContainer"></div>
+  </div>
 
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal-wrapper">
@@ -432,30 +537,6 @@
 
   <script>
     const menuData = {
-      coffee: {
-        info: {
-          blend: '#브라질 40%, 콜롬비아 20%, 과테말라 20%, 에티오피아 20%',
-          acidity: 2.5,
-          strength: 4,
-        },
-        categories: [
-          {
-            title: 'AMERICANO',
-            items: [
-              { name: '아메리카노', price: '4,500', desc: '깊고 풍부한 에스프레소에 물을 더해 깔끔하게 즐기는 클래식 커피입니다. HOT / ICE 선택 가능합니다.', emoji: '☕', hotice: true },
-              { name: '카페라떼', price: '5,000', desc: '부드러운 우유와 진한 에스프레소의 조화. 고소하고 부드러운 맛이 특징입니다. HOT / ICE 선택 가능합니다.', emoji: '☕', hotice: true },
-              { name: '바닐라라떼', price: '5,500', desc: '달콤한 바닐라 시럽과 에스프레소, 스팀밀크의 완벽한 조합입니다. HOT / ICE 선택 가능합니다.', emoji: '☕', hotice: true },
-            ]
-          },
-          {
-            title: 'SPECIAL',
-            items: [
-              { name: 'Max Verstappen', nameKr: '막스 베르스타펜', price: '6,000', brief: ['레드불 + 샷 <span class="caution">고카페인</span>', '제로 선택 가능'], hotice: 'ICE', desc: '에너지 드링크 레드불에 에스프레소 샷을 더한 강력한 시그니처 음료입니다.', emoji: '🧃' },
-              { name: 'NASCAR', nameKr: '나스카', price: '5,500', brief: ['코카콜라 + 샷', '제로 선택 가능'], hotice: 'ICE', desc: '시원한 코카콜라에 에스프레소 샷을 더한 특별한 시그니처 음료입니다.', emoji: '🥤' },
-            ]
-          },
-        ]
-      },
       beer: {
         categories: [
           {
@@ -470,6 +551,7 @@
           },
           {
             title: 'LIMITED',
+            columnBreak: true,
             items: [
               { name: '사무엘 아담스', abv: '5.0%', price: '6,500', brief: ['미국 보스턴 라거'], desc: '미국 보스턴을 대표하는 프리미엄 라거. 풍부한 몰트와 균형 잡힌 홉의 풍미가 특징입니다.', emoji: '🍻' },
               { name: '비라모레띠', abv: '4.6%', price: '6,500', brief: ['WEC 이몰라 기념 한정 판매'], desc: '이탈리아 전통 라거. WEC 이몰라 기념 한정 판매입니다.', emoji: '🍻' },
@@ -478,7 +560,32 @@
           },
         ]
       },
-      drink: {
+      coffee: {
+        info: {
+          blend: '#브라질 40%, 콜롬비아 20%, 과테말라 20%, 에티오피아 20%',
+          acidity: 2.5,
+          strength: 4,
+        },
+        categories: [
+          {
+            title: '',
+            items: [
+              { name: '아메리카노', price: '4,500', desc: '깊고 풍부한 에스프레소에 물을 더해 깔끔하게 즐기는 클래식 커피입니다. HOT / ICE 선택 가능합니다.', emoji: '☕', hotice: true },
+              { name: '카페라떼', price: '5,000', desc: '부드러운 우유와 진한 에스프레소의 조화. 고소하고 부드러운 맛이 특징입니다. HOT / ICE 선택 가능합니다.', emoji: '☕', hotice: true },
+              { name: '바닐라라떼', price: '5,500', desc: '달콤한 바닐라 시럽과 에스프레소, 스팀밀크의 완벽한 조합입니다. HOT / ICE 선택 가능합니다.', emoji: '☕', hotice: true },
+            ]
+          },
+          {
+            title: 'SPECIAL',
+            columnBreak: true,
+            items: [
+              { name: 'Max Verstappen', nameKr: '막스 베르스타펜', price: '6,000', brief: ['레드불 + 샷 <span class="caution">고카페인</span>', '제로 선택 가능'], hotice: 'ICE', desc: '에너지 드링크 레드불에 에스프레소 샷을 더한 강력한 시그니처 음료입니다.', emoji: '🧃' },
+              { name: 'NASCAR', nameKr: '나스카', price: '5,500', brief: ['코카콜라 + 샷', '제로 선택 가능'], hotice: 'ICE', desc: '시원한 코카콜라에 에스프레소 샷을 더한 특별한 시그니처 음료입니다.', emoji: '🥤' },
+            ]
+          },
+        ]
+      },
+      noncoffee: {
         categories: [
           {
             title: 'ADE',
@@ -497,6 +604,7 @@
           },
           {
             title: 'SOFT DRINK',
+            columnBreak: true,
             items: [
               { name: '코카콜라', price: '4,000', brief: ['245ml'], desc: '시원하고 톡 쏘는 클래식 코카콜라입니다.', emoji: '🥤' },
               { name: '레드불', price: '4,000', brief: ['250ml'], desc: '날개를 펼쳐주는 에너지 드링크. 시원하게 즐겨보세요.', emoji: '🧃' },
@@ -510,11 +618,17 @@
       food: {
         categories: [
           {
-            title: 'FOOD',
+            title: '',
             items: [
-              { name: '프레즐', price: '2,000', brief: ['미니 트위스트'], desc: '짭짤하고 바삭한 미니 트위스트 프레즐입니다.', emoji: '🥨' },
+              { name: '프레즐', price: '3,000', brief: ['미니 트위스트'], desc: '짭짤하고 바삭한 미니 트위스트 프레즐입니다.', emoji: '🥨' },
               { name: '감자튀김', price: '5,500', desc: '바삭하게 튀겨낸 감자튀김입니다.', emoji: '🍟' },
               { name: '어묵튀김', price: '5,500', desc: '바삭한 어묵튀김입니다.', emoji: '🍢' },
+            ]
+          },
+          {
+            title: '',
+            columnBreak: true,
+            items: [
               { name: '팝콘치킨', price: '6,000', desc: '한입 사이즈로 튀겨낸 바삭한 팝콘치킨입니다.', emoji: '🍗' },
               { name: '나초', price: '6,000', desc: '바삭한 나초칩에 치즈와 살사 소스를 곁들인 인기 안주입니다.', emoji: '🌮' },
               { name: '육개장 컵라면 <span class="caution">22시 이후 판매</span>', price: '3,500', brief: ['일반 / 김치'], desc: '얼큰한 육개장 컵라면. 일반 / 김치 맛 중 선택 가능합니다.', emoji: '🍜' },
@@ -543,16 +657,29 @@
       if (data.info) {
         html += `
           <div class="bean-info">
-            <div class="bean-info-blend">${data.info.blend}</div>
-            <div class="bean-info-ratings">
-              <div><span class="bean-info-rating-label">산미</span><span class="bean-info-dots">${renderRating(data.info.acidity)}</span></div>
-              <div><span class="bean-info-rating-label">강도</span><span class="bean-info-dots">${renderRating(data.info.strength)}</span></div>
+            <div class="bean-info-main">
+              <div class="bean-info-blend">${data.info.blend}</div>
+              <div class="bean-info-roast">미디엄다크로스팅</div>
+            </div>
+            <div class="bean-info-decaf">
+              <div>디카페인 <span class="bean-info-price">+300원</span> <span class="bean-info-sub">(콜롬비아 100%, 다크로스팅)</span></div>
+              <div>Take Out <span class="bean-info-price">-1,500원</span></div>
             </div>
           </div>`;
       }
 
-      data.categories.forEach(cat => {
-        html += `<div class="category-title">${cat.title}</div>`;
+      data.categories.forEach((cat, catIdx) => {
+        if (cat.title) {
+          const cbClass = cat.columnBreak ? ' column-break' : '';
+          html += `<div class="category-title${cbClass}">${cat.title}</div>`;
+        } else if (cat.columnBreak) {
+          html += `<div class="column-break-spacer"></div>`;
+        } else {
+          const hasVisibleTitleLater = data.categories.slice(catIdx + 1).some(c => c.title);
+          if (hasVisibleTitleLater) {
+            html += `<div class="category-title empty-title">&nbsp;</div>`;
+          }
+        }
         cat.items.forEach((item, idx) => {
           const hoticeLabel = item.hotice === true ? 'HOT / ICE' : (typeof item.hotice === 'string' ? item.hotice : '');
           const hoticeHtml = hoticeLabel ? `<span class="hotice">${hoticeLabel}</span>` : '';
@@ -575,6 +702,7 @@
       });
 
       container.innerHTML = html;
+      container.className = 'menu-container tab-' + tab;
 
       // 메뉴 상세보기는 비활성화 (나중에 사용)
       // container.querySelectorAll('.menu-item').forEach(el => {
@@ -615,8 +743,8 @@
         tab.classList.add('active');
         activeTab = tab.dataset.tab;
         renderMenu(activeTab);
-        container.scrollTo(0, 0);
-        window.scrollTo(0, 0);
+        const scrollArea = document.getElementById('scrollArea');
+        if (scrollArea) scrollArea.scrollTo(0, 0);
       });
     });
 
@@ -638,6 +766,24 @@
       document.getElementById('installGuide').classList.remove('show');
       localStorage.setItem('guide-dismissed', '1');
     });
+
+    // iOS Safari pull-to-refresh / overscroll 방지
+    const scrollArea = document.getElementById('scrollArea');
+    let startY = 0;
+
+    document.addEventListener('touchstart', (e) => {
+      if (e.touches.length === 1) startY = e.touches[0].pageY;
+    }, { passive: true });
+
+    document.addEventListener('touchmove', (e) => {
+      const y = e.touches[0].pageY;
+      const scrollTop = scrollArea.scrollTop;
+      const maxScroll = scrollArea.scrollHeight - scrollArea.clientHeight;
+      // 최상단/최하단에서의 오버스크롤(바운스) 및 pull-to-refresh 차단
+      if ((scrollTop <= 0 && y > startY) || (scrollTop >= maxScroll && y < startY)) {
+        e.preventDefault();
+      }
+    }, { passive: false });
   </script>
 
 </body>
