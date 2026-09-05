@@ -4,6 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>STAND MENU</title>
 
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -169,8 +172,9 @@
 
       /* FOOD 탭은 1단으로 */
       .menu-container.tab-food {
-        column-count: 1;
-        max-width: 600px;
+        column-count: 1 !important;
+        max-width: 600px !important;
+        padding-top: 8px !important;
       }
 
       .menu-item,
@@ -184,14 +188,22 @@
         column-span: all;
       }
 
+      .menu-container {
+        padding-top: 40px;
+      }
+
+      /* 컬럼 첫 요소들은 margin 대신 컨테이너 padding으로 위치 고정
+         (multi-column에서 margin-top이 브라우저마다 다르게 처리되는 문제 회피) */
       .category-title:first-child,
-      .bean-info + .category-title {
-        margin-top: 16px;
+      .bean-info + .category-title,
+      .category-title.column-break,
+      .empty-title {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
       }
 
       .category-title.column-break {
         break-before: column;
-        margin-top: 16px;
       }
 
       .column-break-spacer {
@@ -201,7 +213,12 @@
       .empty-title {
         display: block;
         visibility: hidden;
-        margin-top: 16px;
+      }
+
+      /* COFFEE 탭: SPECIAL 위쪽에 여백 추가 (empty-title도 동일하게 맞춤) */
+      .menu-container.tab-coffee .category-title.column-break,
+      .menu-container.tab-coffee .empty-title {
+        padding-top: 32px !important;
       }
     }
 
@@ -576,8 +593,14 @@
             ]
           },
           {
-            title: 'SPECIAL',
+            title: 'SIGNATURE',
             columnBreak: true,
+            items: [
+              { name: 'Dakar', nameKr: '다카르', price: '6,500', soldOut: true, brief: ['미숫가루 베이스 + 샷'], hotice: 'ICE', desc: '고소한 미숫가루 베이스에 에스프레소 샷을 더한 시그니처 음료입니다.', emoji: '🥤' },
+            ]
+          },
+          {
+            title: 'SPECIAL',
             items: [
               { name: 'Max Verstappen', nameKr: '막스 베르스타펜', price: '6,000', brief: ['레드불 + 샷 <span class="caution">고카페인</span>', '제로 선택 가능'], hotice: 'ICE', desc: '에너지 드링크 레드불에 에스프레소 샷을 더한 강력한 시그니처 음료입니다.', emoji: '🧃' },
               { name: 'NASCAR', nameKr: '나스카', price: '5,500', brief: ['코카콜라 + 샷', '제로 선택 가능'], hotice: 'ICE', desc: '시원한 코카콜라에 에스프레소 샷을 더한 특별한 시그니처 음료입니다.', emoji: '🥤' },
@@ -595,22 +618,26 @@
             ]
           },
           {
-            title: 'TEA',
-            items: [
-              { name: '홍차', price: '5,000', brief: ['Rich Ceylon / Royal Earl Grey'], hotice: true, desc: '깔끔한 Rich Ceylon 또는 향긋한 Royal Earl Grey 중 선택 가능합니다.', emoji: '🫖' },
-              { name: '우롱차', price: '5,000', hotice: true, desc: '은은한 꽃향과 부드러운 맛이 특징인 반발효차입니다.', emoji: '🍵' },
-              { name: '밀크티', price: '5,000', brief: ['<span class="caution">고당도</span>'], hotice: 'ICE', desc: '진한 홍차에 우유와 시럽을 더한 달콤한 밀크티입니다.', emoji: '🥤' },
-            ]
-          },
-          {
             title: 'SOFT DRINK',
-            columnBreak: true,
             items: [
-              { name: '코카콜라', price: '4,000', brief: ['245ml'], desc: '시원하고 톡 쏘는 클래식 코카콜라입니다.', emoji: '🥤' },
-              { name: '레드불', price: '4,000', brief: ['250ml'], desc: '날개를 펼쳐주는 에너지 드링크. 시원하게 즐겨보세요.', emoji: '🧃' },
+              { name: '코카콜라 <span class="menu-name-kr">245ml</span>', price: '4,000', desc: '시원하고 톡 쏘는 클래식 코카콜라입니다.', emoji: '🥤' },
+              { name: '레드불 <span class="menu-name-kr">250ml</span>', price: '4,000', desc: '날개를 펼쳐주는 에너지 드링크. 시원하게 즐겨보세요.', emoji: '🧃' },
               { name: '골드메달', price: '5,000', brief: ['사과주스'], desc: '상큼하고 달콤한 사과주스입니다.', emoji: '🍎' },
               { name: '분다버그', price: '5,500', brief: ['핑크자몽'], desc: '호주 프리미엄 음료. 상큼한 핑크자몽 맛이 매력적입니다.', emoji: '🍹' },
               { name: '오렌지 주스', price: '5,000', desc: '상큼하고 시원한 오렌지 주스입니다.', emoji: '🍊' },
+            ]
+          },
+          {
+            title: 'TEA',
+            columnBreak: true,
+            items: [
+              { name: '홍차', price: '5,000', brief: ['실론 / 얼그레이 / 잉글리시 브랙퍼스트 / 카다멈', '피치 & 패션프룻 / 레몬 & 라임 트위스트', '스트로베리 센세이션'], hotice: true, desc: '다양한 홍차 중 선택 가능합니다.', emoji: '🫖' },
+              { name: '녹차', price: '5,000', brief: ['그린티 / 민트 그린티 / 자스민 그린티'], hotice: true, desc: '깔끔한 그린티, 상쾌한 민트 그린티, 향긋한 자스민 그린티 중 선택 가능합니다.', emoji: '🍵' },
+              { name: '우롱차', price: '5,000', hotice: true, desc: '은은한 꽃향과 부드러운 맛이 특징인 반발효차입니다.', emoji: '🍵' },
+              { name: '캐모마일', price: '5,000', hotice: true, desc: '은은한 꽃향으로 마음이 편안해지는 허브티입니다.', emoji: '🌼' },
+              { name: '꿀 캐모마일', price: '5,000', hotice: true, desc: '캐모마일에 달콤한 꿀을 더해 더욱 부드러운 허브티입니다.', emoji: '🍯' },
+              { name: 'Yellow Cream', nameKr: '과일블렌드', price: '5,000', brief: ['사과조각 71%, 건조사과다이스 8%, 스피어민트잎 5% 등'], hotice: true, desc: '상큼한 사과와 스피어민트, 금잔화꽃이 어우러진 과일 블렌드 티입니다.', emoji: '🍎' },
+              { name: '밀크티', price: '5,000', soldOut: true, brief: ['<span class="caution">고당도</span>'], hotice: 'ICE', desc: '진한 홍차에 우유와 시럽을 더한 달콤한 밀크티입니다.', emoji: '🥤' },
             ]
           }
         ]
@@ -623,12 +650,6 @@
               { name: '프레즐', price: '3,000', brief: ['미니 트위스트'], desc: '짭짤하고 바삭한 미니 트위스트 프레즐입니다.', emoji: '🥨' },
               { name: '감자튀김', price: '5,500', desc: '바삭하게 튀겨낸 감자튀김입니다.', emoji: '🍟' },
               { name: '어묵튀김', price: '5,500', desc: '바삭한 어묵튀김입니다.', emoji: '🍢' },
-            ]
-          },
-          {
-            title: '',
-            columnBreak: true,
-            items: [
               { name: '팝콘치킨', price: '6,000', desc: '한입 사이즈로 튀겨낸 바삭한 팝콘치킨입니다.', emoji: '🍗' },
               { name: '나초', price: '6,000', desc: '바삭한 나초칩에 치즈와 살사 소스를 곁들인 인기 안주입니다.', emoji: '🌮' },
               { name: '육개장 컵라면 <span class="caution">22시 이후 판매</span>', price: '3,500', brief: ['일반 / 김치'], desc: '얼큰한 육개장 컵라면. 일반 / 김치 맛 중 선택 가능합니다.', emoji: '🍜' },
@@ -703,6 +724,15 @@
 
       container.innerHTML = html;
       container.className = 'menu-container tab-' + tab;
+
+      // FOOD 탭은 강제로 1단으로 (CSS가 캐싱 등으로 무시될 경우 대비)
+      if (tab === 'food') {
+        container.style.columnCount = '1';
+        container.style.maxWidth = '600px';
+      } else {
+        container.style.columnCount = '';
+        container.style.maxWidth = '';
+      }
 
       // 메뉴 상세보기는 비활성화 (나중에 사용)
       // container.querySelectorAll('.menu-item').forEach(el => {
