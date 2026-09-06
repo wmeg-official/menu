@@ -369,6 +369,10 @@
       letter-spacing: 1px;
     }
 
+    .soldout.comingsoon {
+      background: #4a7ab5;
+    }
+
     .menu-brief {
       font-size: 14px;
       color: #666;
@@ -596,7 +600,7 @@
             title: 'SIGNATURE',
             columnBreak: true,
             items: [
-              { name: 'Dakar', nameKr: '다카르', price: '6,500', soldOut: true, brief: ['미숫가루 베이스 + 샷'], hotice: 'ICE', desc: '고소한 미숫가루 베이스에 에스프레소 샷을 더한 시그니처 음료입니다.', emoji: '🥤' },
+              { name: 'Dakar', nameKr: '다카르', price: '6,500', comingSoon: true, brief: ['미숫가루 베이스 + 샷'], hotice: 'ICE', desc: '고소한 미숫가루 베이스에 에스프레소 샷을 더한 시그니처 음료입니다.', emoji: '🥤' },
             ]
           },
           {
@@ -613,8 +617,8 @@
           {
             title: 'ADE',
             items: [
-              { name: '매실에이드', price: '6,000', brief: ['수제'], desc: '수제 매실 원액에 탄산을 더한 상큼달콤한 에이드입니다.', emoji: '🍹' },
-              { name: '레몬에이드', price: '6,500', brief: ['수제'], desc: '수제 레몬 원액에 탄산을 더한 상큼한 에이드입니다.', emoji: '🍋' },
+              { name: '매실에이드', price: '6,000', brief: ['제철 매실로 담근 수제 매실액 사용'], desc: '수제 매실 원액에 탄산을 더한 상큼달콤한 에이드입니다.', emoji: '🍹' },
+              { name: '레몬에이드', price: '6,500', brief: ['비정제 설탕을 넣은 수제 레몬에이드'], desc: '수제 레몬 원액에 탄산을 더한 상큼한 에이드입니다.', emoji: '🍋' },
             ]
           },
           {
@@ -637,7 +641,7 @@
               { name: '캐모마일', price: '5,000', hotice: true, desc: '은은한 꽃향으로 마음이 편안해지는 허브티입니다.', emoji: '🌼' },
               { name: '꿀 캐모마일', price: '5,000', hotice: true, desc: '캐모마일에 달콤한 꿀을 더해 더욱 부드러운 허브티입니다.', emoji: '🍯' },
               { name: 'Yellow Cream', nameKr: '과일블렌드', price: '5,000', brief: ['사과조각 71%, 건조사과다이스 8%, 스피어민트잎 5% 등'], hotice: true, desc: '상큼한 사과와 스피어민트, 금잔화꽃이 어우러진 과일 블렌드 티입니다.', emoji: '🍎' },
-              { name: '밀크티', price: '5,000', soldOut: true, brief: ['<span class="caution">고당도</span>'], hotice: 'ICE', desc: '진한 홍차에 우유와 시럽을 더한 달콤한 밀크티입니다.', emoji: '🥤' },
+              { name: '밀크티', price: '5,000', soldOut: true, brief: ['<span class="caution">고당도</span>'], hotice: true, desc: '진한 홍차에 우유와 시럽을 더한 달콤한 밀크티입니다.', emoji: '🥤' },
             ]
           }
         ]
@@ -683,7 +687,10 @@
               <div class="bean-info-roast">미디엄다크로스팅</div>
             </div>
             <div class="bean-info-decaf">
-              <div>디카페인 <span class="bean-info-price">+300원</span> <span class="bean-info-sub">(콜롬비아 100%, 다크로스팅)</span></div>
+              <div>
+                <div>샷추가 <span class="bean-info-price">+300원</span> <span class="bean-info-sub">(1 샷)</span></div>
+                <div>디카페인 <span class="bean-info-price">+300원</span> <span class="bean-info-sub">(콜롬비아 100%, 다크로스팅)</span></div>
+              </div>
               <div>Take Out <span class="bean-info-price">-1,500원</span></div>
             </div>
           </div>`;
@@ -705,7 +712,7 @@
           const hoticeLabel = item.hotice === true ? 'HOT / ICE' : (typeof item.hotice === 'string' ? item.hotice : '');
           const hoticeHtml = hoticeLabel ? `<span class="hotice">${hoticeLabel}</span>` : '';
           const abvHtml = item.abv ? `<span class="abv">${item.abv}</span>` : '';
-          const soldOutHtml = item.soldOut ? `<span class="soldout">SOLD OUT</span>` : '';
+          const soldOutHtml = item.soldOut ? `<span class="soldout">SOLD OUT</span>` : (item.comingSoon ? `<span class="soldout comingsoon">COMING SOON</span>` : '');
           const briefLines = Array.isArray(item.brief) ? item.brief : (item.brief ? [item.brief] : []);
           const briefHtml = briefLines.map(line => `<div class="menu-brief">${line}</div>`).join('');
 
