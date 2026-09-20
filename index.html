@@ -170,12 +170,6 @@
         padding: 8px 32px 40px;
       }
 
-      /* FOOD 탭은 1단으로 */
-      .menu-container.tab-food {
-        column-count: 1 !important;
-        max-width: 600px !important;
-        padding-top: 8px !important;
-      }
 
       .menu-item,
       .category-title,
@@ -190,6 +184,11 @@
 
       .menu-container {
         padding-top: 40px;
+      }
+
+      /* 가로 모드에서 중간 카테고리 간격 축소 (한눈에 보이도록) */
+      .category-title {
+        margin-top: 28px;
       }
 
       /* 컬럼 첫 요소들은 margin 대신 컨테이너 padding으로 위치 고정
@@ -364,13 +363,28 @@
       font-weight: 700;
       color: #fff;
       background: #999;
-      padding: 2px 8px;
+      padding: 3px 8px;
       border-radius: 3px;
       letter-spacing: 1px;
+      vertical-align: middle;
+      position: relative;
+      top: -2px;
     }
 
     .soldout.comingsoon {
       background: #4a7ab5;
+    }
+
+    .soldout.seasonal {
+      background: #5a8a4a;
+    }
+
+    .sketch-icon {
+      width: 26px;
+      height: 26px;
+      vertical-align: -6px;
+      margin-left: 4px;
+      opacity: 0.85;
     }
 
     .menu-brief {
@@ -617,9 +631,9 @@
           {
             title: 'ADE',
             items: [
-              { name: '매실에이드', price: '6,000', brief: ['제철 매실로 담근 수제 매실액 사용'], desc: '수제 매실 원액에 탄산을 더한 상큼달콤한 에이드입니다.', emoji: '🍹' },
-              { name: '레몬에이드', price: '6,500', brief: ['비정제 설탕을 넣은 수제 레몬에이드'], desc: '수제 레몬 원액에 탄산을 더한 상큼한 에이드입니다.', emoji: '🍋' },
-              { name: '청귤에이드', price: '6,500', brief: ['유기농 수제 청귤 에이드'], desc: '유기농 청귤 원액에 탄산을 더한 상큼한 수제 에이드입니다.', emoji: '🍈' },
+              { name: `매실에이드 <svg class="sketch-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#5a7a3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="28" r="12" fill="#c8dc9a"/><path d="M24 16 Q22 10 18 8" stroke="#5a7a3a"/><path d="M22 12 Q26 8 30 10 Q29 14 24 15Z" fill="#8ab070" stroke="#3a5a2a"/><path d="M20 24 Q24 22 24 32"/></g></svg>`, price: '6,000', brief: ['제철 매실로 담근 수제 매실액 사용'], desc: '수제 매실 원액에 탄산을 더한 상큼달콤한 에이드입니다.', emoji: '🍹' },
+              { name: `레몬에이드 <svg class="sketch-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#b59a1a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="24" cy="26" rx="11" ry="14" fill="#f5e58a"/><path d="M24 12 L24 10"/><path d="M24 40 L24 42"/><path d="M18 26 Q24 24 30 26"/><path d="M20 22 Q24 20 28 22"/><path d="M20 30 Q24 32 28 30"/></g></svg>`, price: '6,500', brief: ['비정제 설탕을 넣은 수제 레몬에이드'], desc: '수제 레몬 원액에 탄산을 더한 상큼한 에이드입니다.', emoji: '🍋' },
+              { name: `청귤에이드 <svg class="sketch-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#3a7a3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="28" r="13" fill="#b8dca8"/><path d="M22 15 Q20 8 14 6 Q12 10 16 14 Q20 16 22 15Z" fill="#c5e5c5" stroke="#3a7a3a"/><path d="M22 15 Q18 10 14 8"/><path d="M18 24 Q22 28 26 24"/><path d="M22 34 Q26 32 30 34"/></g></svg>`, price: '6,500', seasonal: true, brief: ['수제 유기농 제주청귤 에이드'], desc: '유기농 청귤 원액에 탄산을 더한 상큼한 수제 에이드입니다.', emoji: '🍈' },
             ]
           },
           {
@@ -650,7 +664,14 @@
       food: {
         categories: [
           {
-            title: '',
+            title: 'DESSERT',
+            items: [
+              { name: '말렌카 허니케이크', price: '6,500', brief: ['체코산 꿀·코코아 8겹 레이어'], desc: '체코산 꿀과 코코아로 만든 8겹 레이어 허니케이크입니다.', emoji: '🍰' },
+            ]
+          },
+          {
+            title: 'SNACK',
+            columnBreak: true,
             items: [
               { name: '프레즐', price: '3,000', brief: ['미니 트위스트'], desc: '짭짤하고 바삭한 미니 트위스트 프레즐입니다.', emoji: '🥨' },
               { name: '감자튀김', price: '5,500', desc: '바삭하게 튀겨낸 감자튀김입니다.', emoji: '🍟' },
@@ -713,7 +734,7 @@
           const hoticeLabel = item.hotice === true ? 'HOT / ICE' : (typeof item.hotice === 'string' ? item.hotice : '');
           const hoticeHtml = hoticeLabel ? `<span class="hotice">${hoticeLabel}</span>` : '';
           const abvHtml = item.abv ? `<span class="abv">${item.abv}</span>` : '';
-          const soldOutHtml = item.soldOut ? `<span class="soldout">SOLD OUT</span>` : (item.comingSoon ? `<span class="soldout comingsoon">COMING SOON</span>` : '');
+          const soldOutHtml = item.soldOut ? `<span class="soldout">SOLD OUT</span>` : (item.comingSoon ? `<span class="soldout comingsoon">COMING SOON</span>` : (item.seasonal ? `<span class="soldout seasonal">시즌한정</span>` : ''));
           const briefLines = Array.isArray(item.brief) ? item.brief : (item.brief ? [item.brief] : []);
           const briefHtml = briefLines.map(line => `<div class="menu-brief">${line}</div>`).join('');
 
@@ -733,14 +754,8 @@
       container.innerHTML = html;
       container.className = 'menu-container tab-' + tab;
 
-      // FOOD 탭은 강제로 1단으로 (CSS가 캐싱 등으로 무시될 경우 대비)
-      if (tab === 'food') {
-        container.style.columnCount = '1';
-        container.style.maxWidth = '600px';
-      } else {
-        container.style.columnCount = '';
-        container.style.maxWidth = '';
-      }
+      container.style.columnCount = '';
+      container.style.maxWidth = '';
 
       // 메뉴 상세보기는 비활성화 (나중에 사용)
       // container.querySelectorAll('.menu-item').forEach(el => {
