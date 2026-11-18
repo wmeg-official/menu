@@ -214,7 +214,8 @@
         visibility: hidden;
       }
 
-      /* COFFEE 탭: SPECIAL 위쪽에 여백 추가 (empty-title도 동일하게 맞춤) */
+      /* COFFEE 탭: 양쪽 컬럼 첫 카테고리(ESPRESSO / BREWING) 위쪽 여백을 동일하게 */
+      .menu-container.tab-coffee .bean-info + .category-title,
       .menu-container.tab-coffee .category-title.column-break,
       .menu-container.tab-coffee .empty-title {
         padding-top: 32px !important;
@@ -607,7 +608,7 @@
         },
         categories: [
           {
-            title: '',
+            title: 'ESPRESSO',
             items: [
               { name: '아메리카노', price: '4,500', desc: '깊고 풍부한 에스프레소에 물을 더해 깔끔하게 즐기는 클래식 커피입니다. HOT / ICE 선택 가능합니다.', emoji: '☕', hotice: true },
               { name: '카페라떼', price: '5,000', desc: '부드러운 우유와 진한 에스프레소의 조화. 고소하고 부드러운 맛이 특징입니다. HOT / ICE 선택 가능합니다.', emoji: '☕', hotice: true },
@@ -617,10 +618,16 @@
             ]
           },
           {
-            title: 'SPECIAL',
+            title: 'BREWING',
             columnBreak: true,
             items: [
-              { name: 'Dakar', nameKr: '다카르', price: '6,500', brief: ['미숫가루 베이스 + 샷'], hotice: 'ICE', desc: '고소한 미숫가루 베이스에 에스프레소 샷을 더한 시그니처 음료입니다.', emoji: '🥤' },
+              { name: '오늘의 커피', price: '5,000', brief: ['멕시코 치아파스 미디엄다크 로스팅'], hotice: true, desc: '오늘의 원두로 내려드리는 브루잉 커피입니다. 멕시코 치아파스 미디엄다크 로스팅.', emoji: '☕' },
+            ]
+          },
+          {
+            title: 'SPECIAL',
+            items: [
+              { name: 'Dakar', nameKr: '다카르', soldOut: true, price: '6,500', brief: ['미숫가루 베이스 + 샷'], hotice: 'ICE', desc: '고소한 미숫가루 베이스에 에스프레소 샷을 더한 시그니처 음료입니다.', emoji: '🥤' },
               { name: 'Max Verstappen', nameKr: '막스 베르스타펜', price: '6,000', brief: ['레드불 + 샷 <span class="caution">고카페인</span>', '제로 선택 가능'], hotice: 'ICE', desc: '에너지 드링크 레드불에 에스프레소 샷을 더한 강력한 시그니처 음료입니다.', emoji: '🧃' },
               { name: 'NASCAR', nameKr: '나스카', price: '5,500', brief: ['코카콜라 + 샷', '제로 선택 가능'], hotice: 'ICE', desc: '시원한 코카콜라에 에스프레소 샷을 더한 특별한 시그니처 음료입니다.', emoji: '🥤' },
             ]
