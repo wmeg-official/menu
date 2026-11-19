@@ -278,6 +278,26 @@
       font-weight: 700;
     }
 
+    .handmade-mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      margin-left: 4px;
+      border: 1.5px solid #b5651d;
+      border-radius: 50%;
+      box-shadow: inset 0 0 0 2px #f0f0f0, inset 0 0 0 3px #b5651d;
+      color: #b5651d;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      vertical-align: middle;
+      position: relative;
+      top: -2px;
+      transform: rotate(-8deg);
+    }
+
     .bean-info-takeout {
       font-size: 17px;
     }
@@ -652,9 +672,9 @@
           {
             title: 'ADE',
             items: [
-              { name: `매실에이드 <svg class="sketch-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#5a7a3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="28" r="12" fill="#c8dc9a"/><path d="M24 16 Q22 10 18 8" stroke="#5a7a3a"/><path d="M22 12 Q26 8 30 10 Q29 14 24 15Z" fill="#8ab070" stroke="#3a5a2a"/><path d="M20 24 Q24 22 24 32"/></g></svg>`, price: '6,000', hotice: 'ICE', brief: ['제철 매실로 담근 수제 매실액 사용'], desc: '수제 매실 원액에 탄산을 더한 상큼달콤한 에이드입니다.', emoji: '🍹' },
-              { name: `레몬에이드 <svg class="sketch-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#b59a1a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="24" cy="26" rx="11" ry="14" fill="#f5e58a"/><path d="M24 12 L24 10"/><path d="M24 40 L24 42"/><path d="M18 26 Q24 24 30 26"/><path d="M20 22 Q24 20 28 22"/><path d="M20 30 Q24 32 28 30"/></g></svg>`, price: '6,500', hotice: 'ICE', brief: ['비정제 설탕을 넣은 수제 레몬에이드'], desc: '수제 레몬 원액에 탄산을 더한 상큼한 에이드입니다.', emoji: '🍋' },
-              { name: `청귤에이드 <svg class="sketch-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#3a7a3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="28" r="13" fill="#b8dca8"/><path d="M22 15 Q20 8 14 6 Q12 10 16 14 Q20 16 22 15Z" fill="#c5e5c5" stroke="#3a7a3a"/><path d="M22 15 Q18 10 14 8"/><path d="M18 24 Q22 28 26 24"/><path d="M22 34 Q26 32 30 34"/></g></svg>`, price: '6,500', seasonal: true, hotice: 'ICE', brief: ['수제 유기농 제주청귤 에이드'], desc: '유기농 청귤 원액에 탄산을 더한 상큼한 수제 에이드입니다.', emoji: '🍈' },
+              { name: `매실에이드 <span class="handmade-mark">수제</span> <svg class="sketch-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#5a7a3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="28" r="12" fill="#c8dc9a"/><path d="M24 16 Q22 10 18 8" stroke="#5a7a3a"/><path d="M22 12 Q26 8 30 10 Q29 14 24 15Z" fill="#8ab070" stroke="#3a5a2a"/><path d="M20 24 Q24 22 24 32"/></g></svg>`, price: '6,000', hotice: 'ICE', brief: ['제철 매실로 담근 수제 매실액 사용'], desc: '수제 매실 원액에 탄산을 더한 상큼달콤한 에이드입니다.', emoji: '🍹' },
+              { name: `레몬에이드 <span class="handmade-mark">수제</span> <svg class="sketch-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#b59a1a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="24" cy="26" rx="11" ry="14" fill="#f5e58a"/><path d="M24 12 L24 10"/><path d="M24 40 L24 42"/><path d="M18 26 Q24 24 30 26"/><path d="M20 22 Q24 20 28 22"/><path d="M20 30 Q24 32 28 30"/></g></svg>`, price: '6,500', hotice: 'ICE', brief: ['비정제 설탕을 넣은 수제 레몬에이드'], desc: '수제 레몬 원액에 탄산을 더한 상큼한 에이드입니다.', emoji: '🍋' },
+              { name: `청귤에이드 <span class="handmade-mark">수제</span> <svg class="sketch-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#3a7a3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="28" r="13" fill="#b8dca8"/><path d="M22 15 Q20 8 14 6 Q12 10 16 14 Q20 16 22 15Z" fill="#c5e5c5" stroke="#3a7a3a"/><path d="M22 15 Q18 10 14 8"/><path d="M18 24 Q22 28 26 24"/><path d="M22 34 Q26 32 30 34"/></g></svg>`, price: '6,500', seasonal: true, hotice: 'ICE', brief: ['수제 유기농 제주청귤 에이드'], desc: '유기농 청귤 원액에 탄산을 더한 상큼한 수제 에이드입니다.', emoji: '🍈' },
             ]
           },
           {
@@ -669,9 +689,9 @@
             title: 'TEA',
             columnBreak: true,
             items: [
-              { name: '수제 매실차', price: '5,500', desc: '제철 매실로 담근 수제 매실액으로 만든 새콤달콤한 매실차입니다.', emoji: '🍵' },
-              { name: '수제 레몬차', price: '6,000', desc: '수제 레몬청으로 만든 상큼한 레몬차입니다.', emoji: '🍋' },
-              { name: `수제 청귤차 <svg class="sketch-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#3a7a3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="28" r="13" fill="#b8dca8"/><path d="M22 15 Q20 8 14 6 Q12 10 16 14 Q20 16 22 15Z" fill="#c5e5c5" stroke="#3a7a3a"/><path d="M22 15 Q18 10 14 8"/><path d="M18 24 Q22 28 26 24"/><path d="M22 34 Q26 32 30 34"/></g></svg>`, price: '6,000', seasonal: true, hotice: 'HOT', desc: '수제 청귤청으로 만든 상큼한 청귤차입니다.', emoji: '🍈' },
+              { name: `매실청귤칩차 <span class="handmade-mark">수제</span> <svg class="sketch-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#5a7a3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="28" r="12" fill="#c8dc9a"/><path d="M24 16 Q22 10 18 8" stroke="#5a7a3a"/><path d="M22 12 Q26 8 30 10 Q29 14 24 15Z" fill="#8ab070" stroke="#3a5a2a"/><path d="M20 24 Q24 22 24 32"/></g></svg>`, price: '5,500', hotice: 'HOT', brief: ['달콤한 매실차 + 새콤한 청귤칩'], desc: '달콤한 매실차에 새콤한 청귤칩을 더한 수제 차입니다.', emoji: '🍵' },
+              { name: `레몬차 <span class="handmade-mark">수제</span> <svg class="sketch-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#b59a1a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="24" cy="26" rx="11" ry="14" fill="#f5e58a"/><path d="M24 12 L24 10"/><path d="M24 40 L24 42"/><path d="M18 26 Q24 24 30 26"/><path d="M20 22 Q24 20 28 22"/><path d="M20 30 Q24 32 28 30"/></g></svg>`, price: '6,000', hotice: 'HOT', desc: '수제 레몬청으로 만든 상큼한 레몬차입니다.', emoji: '🍋' },
+              { name: `청귤차 <span class="handmade-mark">수제</span> <svg class="sketch-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#3a7a3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="28" r="13" fill="#b8dca8"/><path d="M22 15 Q20 8 14 6 Q12 10 16 14 Q20 16 22 15Z" fill="#c5e5c5" stroke="#3a7a3a"/><path d="M22 15 Q18 10 14 8"/><path d="M18 24 Q22 28 26 24"/><path d="M22 34 Q26 32 30 34"/></g></svg>`, price: '6,000', seasonal: true, hotice: 'HOT', desc: '수제 청귤청으로 만든 상큼한 청귤차입니다.', emoji: '🍈' },
               { name: '홍차', price: '5,000', brief: ['실론 / 얼그레이 / 잉글리시 브랙퍼스트 / 카다멈', '피치 & 패션프룻 / 레몬 & 라임 트위스트', '스트로베리 센세이션'], hotice: true, desc: '다양한 홍차 중 선택 가능합니다.', emoji: '🫖' },
               { name: '녹차', price: '5,000', brief: ['그린티 / 민트 그린티 / 자스민 그린티'], hotice: true, desc: '깔끔한 그린티, 상쾌한 민트 그린티, 향긋한 자스민 그린티 중 선택 가능합니다.', emoji: '🍵' },
               { name: '우롱차', price: '5,000', hotice: true, desc: '은은한 꽃향과 부드러운 맛이 특징인 반발효차입니다.', emoji: '🍵' },
