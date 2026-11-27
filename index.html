@@ -654,7 +654,7 @@
             title: 'LIMITED',
             columnBreak: true,
             items: [
-              { name: '사무엘 아담스', abv: '5.0%', price: '6,500', brief: ['미국 보스턴 라거'], desc: '미국 보스턴을 대표하는 프리미엄 라거. 풍부한 몰트와 균형 잡힌 홉의 풍미가 특징입니다.', emoji: '🍻' },
+              { name: '사무엘 아담스', abv: '5.0%', soldOut: true, price: '6,500', brief: ['미국 보스턴 라거'], desc: '미국 보스턴을 대표하는 프리미엄 라거. 풍부한 몰트와 균형 잡힌 홉의 풍미가 특징입니다.', emoji: '🍻' },
               { name: '비라모레띠', abv: '4.6%', price: '6,500', brief: ['WEC 이몰라 기념 한정 판매'], desc: '이탈리아 전통 라거. WEC 이몰라 기념 한정 판매입니다.', emoji: '🍻' },
               { name: '런던 프라이드', abv: '4.7%', price: '7,000', brief: ['런던 대표 에일. 영국 GP 기념'], desc: '영국 런던의 전통 페일 에일. 풍부한 몰트 향과 균형 잡힌 홉의 쌉쌀함이 특징입니다.', emoji: '🍻' },
             ]
@@ -689,7 +689,7 @@
             title: 'BREWING',
             columnBreak: true,
             items: [
-              { name: '오늘의 커피', price: '5,000', badge: '주말 한정', brief: ['멕시코 치아파스 미디엄다크 로스팅'], hotice: true, desc: '오늘의 원두로 내려드리는 브루잉 커피입니다. 멕시코 치아파스 미디엄다크 로스팅.', emoji: '☕' },
+              { name: '오늘의 커피', price: '5,000', badge: '주말 한정', brief: ['미디엄다크 로스팅 블렌드'], hotice: true, desc: '오늘의 원두로 내려드리는 브루잉 커피입니다. 멕시코 치아파스 미디엄다크 로스팅.', emoji: '☕' },
             ]
           },
           {
@@ -725,14 +725,13 @@
             items: [
               { name: `매실청귤칩차 <span class="handmade-mark">수제</span> <svg class="sketch-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#5a7a3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="28" r="12" fill="#c8dc9a"/><path d="M24 16 Q22 10 18 8" stroke="#5a7a3a"/><path d="M22 12 Q26 8 30 10 Q29 14 24 15Z" fill="#8ab070" stroke="#3a5a2a"/><path d="M20 24 Q24 22 24 32"/></g></svg>`, price: '5,500', hotice: 'HOT', brief: ['달콤한 매실차 + 새콤한 청귤칩'], desc: '달콤한 매실차에 새콤한 청귤칩을 더한 수제 차입니다.', emoji: '🍵' },
               { name: `레몬차 <span class="handmade-mark">수제</span> <svg class="sketch-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#b59a1a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="24" cy="26" rx="11" ry="14" fill="#f5e58a"/><path d="M24 12 L24 10"/><path d="M24 40 L24 42"/><path d="M18 26 Q24 24 30 26"/><path d="M20 22 Q24 20 28 22"/><path d="M20 30 Q24 32 28 30"/></g></svg>`, price: '6,000', hotice: 'HOT', desc: '수제 레몬청으로 만든 상큼한 레몬차입니다.', emoji: '🍋' },
-              { name: `청귤차 <span class="handmade-mark">수제</span> <svg class="sketch-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#3a7a3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="28" r="13" fill="#b8dca8"/><path d="M22 15 Q20 8 14 6 Q12 10 16 14 Q20 16 22 15Z" fill="#c5e5c5" stroke="#3a7a3a"/><path d="M22 15 Q18 10 14 8"/><path d="M18 24 Q22 28 26 24"/><path d="M22 34 Q26 32 30 34"/></g></svg>`, price: '6,000', seasonal: true, hotice: 'HOT', desc: '수제 청귤청으로 만든 상큼한 청귤차입니다.', emoji: '🍈' },
-              { name: `생강차 <span class="handmade-mark">수제</span>`, price: '7,000', hotice: 'HOT', desc: '국산 생강으로 만든 수제 생강차입니다.', emoji: '🍵' },
-              { name: '홍차', price: '5,000', brief: ['실론 / 얼그레이 / 잉글리시 브랙퍼스트 / 카다멈', '피치 & 패션프룻 / 레몬 & 라임 트위스트', '스트로베리 센세이션'], hotice: true, desc: '다양한 홍차 중 선택 가능합니다.', emoji: '🫖' },
-              { name: '녹차', price: '5,000', brief: ['그린티 / 민트 그린티 / 자스민 그린티'], hotice: true, desc: '깔끔한 그린티, 상쾌한 민트 그린티, 향긋한 자스민 그린티 중 선택 가능합니다.', emoji: '🍵' },
+              { name: `생강차 <span class="handmade-mark">수제</span>`, price: '7,000', seasonal: true, hotice: 'HOT', desc: '국산 생강으로 만든 수제 생강차입니다.', emoji: '🍵' },
+              { name: '밀크티', price: '5,000', soldOut: true, hotice: true, desc: '진한 홍차에 우유와 시럽을 더한 달콤한 밀크티입니다.', emoji: '🥤' },
               { name: '우롱차', price: '5,000', hotice: true, desc: '은은한 꽃향과 부드러운 맛이 특징인 반발효차입니다.', emoji: '🍵' },
               { name: '캐모마일', price: '5,000', brief: ['일반 / 허니'], hotice: true, desc: '은은한 꽃향으로 마음이 편안해지는 허브티입니다. 일반 / 허니 선택 가능합니다.', emoji: '🌼' },
               { name: 'Yellow Cream', nameKr: '과일블렌드', price: '5,000', brief: ['사과조각 71%, 건조사과다이스 8%, 스피어민트잎 5% 등'], hotice: true, desc: '상큼한 사과와 스피어민트, 금잔화꽃이 어우러진 과일 블렌드 티입니다.', emoji: '🍎' },
-              { name: '밀크티', price: '5,000', soldOut: true, hotice: true, desc: '진한 홍차에 우유와 시럽을 더한 달콤한 밀크티입니다.', emoji: '🥤' },
+              { name: '녹차', price: '5,000', brief: ['그린티 / 민트 그린티 / 자스민 그린티'], hotice: true, desc: '깔끔한 그린티, 상쾌한 민트 그린티, 향긋한 자스민 그린티 중 선택 가능합니다.', emoji: '🍵' },
+              { name: `청귤차 <span class="handmade-mark">수제</span> <svg class="sketch-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#3a7a3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="28" r="13" fill="#b8dca8"/><path d="M22 15 Q20 8 14 6 Q12 10 16 14 Q20 16 22 15Z" fill="#c5e5c5" stroke="#3a7a3a"/><path d="M22 15 Q18 10 14 8"/><path d="M18 24 Q22 28 26 24"/><path d="M22 34 Q26 32 30 34"/></g></svg>`, price: '6,000', soldOut: true, seasonal: true, hotice: 'HOT', desc: '수제 청귤청으로 만든 상큼한 청귤차입니다.', emoji: '🍈' }
             ]
           }
         ]
